@@ -19,6 +19,7 @@ export default class TitleScene extends Phaser.Scene {
   constructor() {
     super('TitleScene');
     this.menuButtons = [];
+    this.runOptionButtons = [];
     this.selectedMenuIndex = 0;
     this.runSetupIndex = 0;
     this.isRunSetupOpen = false;
@@ -37,6 +38,8 @@ export default class TitleScene extends Phaser.Scene {
     this.previousLanguageBeforeOptions = null;
     this.titleText = null;
     this.subtitleText = null;
+    this.toastText = null;
+    this.keyboardListeners = [];
   }
 
   create() {
@@ -47,6 +50,7 @@ export default class TitleScene extends Phaser.Scene {
       ...(this.saveData.settings ?? {})
     };
     this.currentSettings.language = LocalizationSystem.getLanguage();
+    this.cleanupUI();
     this.menuButtons = [];
     this.runOptionButtons = [];
     this.isRunSetupOpen = false;
@@ -62,6 +66,42 @@ export default class TitleScene extends Phaser.Scene {
     this.setMenuSelection(0);
     this.refreshLocalizedTexts();
     this.applyAudioSettings(this.currentSettings);
+  }
+
+  cleanupUI() {
+    if (this.menuButtons?.length) {
+      this.menuButtons.forEach((btn) => {
+        btn?.bg?.destroy();
+        btn?.label?.destroy();
+        btn?.container?.destroy();
+      });
+    }
+    if (this.runOptionButtons?.length) {
+      this.runOptionButtons.forEach((btn) => {
+        btn?.bg?.destroy();
+        btn?.label?.destroy();
+        btn?.desc?.destroy();
+        btn?.container?.destroy();
+      });
+    }
+    this.menuButtons = [];
+    this.runOptionButtons = [];
+    this.runSetupContainer?.destroy();
+    this.runSetupContainer = null;
+    this.optionsView?.destroy();
+    this.optionsView = null;
+    this.titleText?.destroy();
+    this.titleText = null;
+    this.subtitleText?.destroy();
+    this.subtitleText = null;
+    this.toastText?.destroy();
+    this.toastText = null;
+    if (this.keyboardListeners?.length) {
+      this.keyboardListeners.forEach(({ event, handler }) => {
+        this.input?.keyboard?.off(event, handler);
+      });
+    }
+    this.keyboardListeners = [];
   }
 
   createBackground() {
@@ -169,7 +209,7 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   registerInput() {
-    this.input.keyboard.on('keydown-UP', () => {
+    this.addKeyboardListener('keydown-UP', () => {
       if (this.isOptionsOpen) {
         return;
       }
@@ -179,7 +219,7 @@ export default class TitleScene extends Phaser.Scene {
         this.setMenuSelection(this.selectedMenuIndex - 1);
       }
     });
-    this.input.keyboard.on('keydown-DOWN', () => {
+    this.addKeyboardListener('keydown-DOWN', () => {
       if (this.isOptionsOpen) {
         return;
       }
@@ -189,7 +229,7 @@ export default class TitleScene extends Phaser.Scene {
         this.setMenuSelection(this.selectedMenuIndex + 1);
       }
     });
-    this.input.keyboard.on('keydown-ENTER', () => {
+    this.addKeyboardListener('keydown-ENTER', () => {
       if (this.isOptionsOpen) {
         return;
       }
@@ -199,7 +239,7 @@ export default class TitleScene extends Phaser.Scene {
         this.activateMenuSelection(this.selectedMenuIndex);
       }
     });
-    this.input.keyboard.on('keydown-ESC', () => {
+    this.addKeyboardListener('keydown-ESC', () => {
       if (this.isOptionsOpen) {
         this.handleOptionsCancel();
         return;
@@ -208,6 +248,15 @@ export default class TitleScene extends Phaser.Scene {
         this.closeRunSetup();
       }
     });
+  }
+
+  addKeyboardListener(event, handler) {
+    if (!this.keyboardListeners) {
+      this.keyboardListeners = [];
+    }
+    const bound = handler.bind(this);
+    this.input.keyboard.on(event, bound);
+    this.keyboardListeners.push({ event, handler: bound });
   }
 
   setMenuSelection(index) {
