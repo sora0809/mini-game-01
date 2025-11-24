@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import Bullet from '../entities/Bullet.js';
 
 const PLAYER_BULLET_LIMIT = 700;

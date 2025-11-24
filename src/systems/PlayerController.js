@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import { PLAYER_RADIUS } from '../entities/Player.js';
 
 export const PlayerState = Object.freeze({

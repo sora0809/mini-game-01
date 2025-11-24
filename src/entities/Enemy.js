@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 
 export default class Enemy extends Phaser.GameObjects.Arc {
   constructor(scene, x, y, config) {

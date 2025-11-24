@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import { LOGICAL_WIDTH, LOGICAL_HEIGHT } from '../config.js';
 
 const BULLET_RADIUS = 3;

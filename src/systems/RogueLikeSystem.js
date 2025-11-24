@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import { loadJSON } from '../utils/jsonLoader.js';
 const enemyData = await loadJSON('./src/data/enemies.json');
 const modifierDefs = await loadJSON('./src/data/modifiers.json');

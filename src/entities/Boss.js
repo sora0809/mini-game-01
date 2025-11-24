@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import Enemy from './Enemy.js';
 import { LOGICAL_WIDTH, LOGICAL_HEIGHT } from '../config.js';
 

@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import SaveManager from '../save/SaveManager.js';
 import LocalizationSystem from '../systems/LocalizationSystem.js';
 

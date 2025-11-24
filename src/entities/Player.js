@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 
 export const PLAYER_RADIUS = 6;
 export const PLAYER_COLOR = 0x3dffec;

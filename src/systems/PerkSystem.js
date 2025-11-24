@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import { loadJSON } from '../utils/jsonLoader.js';
 const perksData = await loadJSON('./src/data/perks.json');
 

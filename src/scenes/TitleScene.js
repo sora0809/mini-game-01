@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import { LOGICAL_WIDTH, LOGICAL_HEIGHT } from '../config.js';
 import SaveManager from '../save/SaveManager.js';
 import OptionsView from '../ui/OptionsView.js';

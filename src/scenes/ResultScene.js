@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import { LOGICAL_WIDTH, LOGICAL_HEIGHT } from '../config.js';
 import { loadJSON } from '../utils/jsonLoader.js';
 import LocalizationSystem from '../systems/LocalizationSystem.js';
