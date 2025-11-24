@@ -2,8 +2,9 @@ import Phaser from 'phaser';
 import { LOGICAL_WIDTH, LOGICAL_HEIGHT } from '../config.js';
 import SaveManager from '../save/SaveManager.js';
 import MetaProgressionSystem from '../systems/MetaProgressionSystem.js';
-import metaUpgradeDefs from '../data/meta_upgrades.json' assert { type: 'json' };
+import { loadJSON } from '../utils/jsonLoader.js';
 import LocalizationSystem from '../systems/LocalizationSystem.js';
+const metaUpgradeDefs = await loadJSON('./src/data/meta_upgrades.json');
 
 export default class MetaScene extends Phaser.Scene {
   constructor() {

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import modifierDefs from '../data/modifiers.json' assert { type: 'json' };
+import { loadJSON } from '../utils/jsonLoader.js';
+const modifierDefs = await loadJSON('./src/data/modifiers.json');
 
 export default class ModifierSystem {
   constructor(scene) {

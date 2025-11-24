@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { LOGICAL_WIDTH } from '../config.js';
-import patternDefs from '../data/patterns.json' assert { type: 'json' };
+import { loadJSON } from '../utils/jsonLoader.js';
+const patternDefs = await loadJSON('./src/data/patterns.json');
 
 export default class PatternSystem {
   constructor(scene, bulletSystem) {

@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import perksData from '../data/perks.json' assert { type: 'json' };
+import { loadJSON } from '../utils/jsonLoader.js';
+const perksData = await loadJSON('./src/data/perks.json');
 
 export default class PerkSystem {
   constructor(scene, metaProgressionSystem, playerController, bulletSystem) {

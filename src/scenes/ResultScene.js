@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import { LOGICAL_WIDTH, LOGICAL_HEIGHT } from '../config.js';
-import perksData from '../data/perks.json' assert { type: 'json' };
+import { loadJSON } from '../utils/jsonLoader.js';
 import LocalizationSystem from '../systems/LocalizationSystem.js';
+const perksData = await loadJSON('./src/data/perks.json');
 
 export default class ResultScene extends Phaser.Scene {
   constructor() {

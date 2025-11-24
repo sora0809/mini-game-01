@@ -1,6 +1,7 @@
-import modifierDefs from '../data/modifiers.json' assert { type: 'json' };
-import perksData from '../data/perks.json' assert { type: 'json' };
-import metaUpgradeDefs from '../data/meta_upgrades.json' assert { type: 'json' };
+import { loadJSON } from '../utils/jsonLoader.js';
+const modifierDefs = await loadJSON('./src/data/modifiers.json');
+const perksData = await loadJSON('./src/data/perks.json');
+const metaUpgradeDefs = await loadJSON('./src/data/meta_upgrades.json');
 
 const UPGRADE_MAP = new Map(metaUpgradeDefs.map((entry) => [entry.id, entry]));
 

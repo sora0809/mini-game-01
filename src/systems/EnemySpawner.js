@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import { LOGICAL_WIDTH, LOGICAL_HEIGHT } from '../config.js';
 import Enemy from '../entities/Enemy.js';
 import Boss from '../entities/Boss.js';
-import enemyData from '../data/enemies.json' assert { type: 'json' };
+import { loadJSON } from '../utils/jsonLoader.js';
+const enemyData = await loadJSON('./src/data/enemies.json');
 
 export default class EnemySpawner {
   constructor(scene, player, rogueLikeSystem = null) {

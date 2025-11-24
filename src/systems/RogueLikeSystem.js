@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
-import enemyData from '../data/enemies.json' assert { type: 'json' };
-import modifierDefs from '../data/modifiers.json' assert { type: 'json' };
-import patternDefs from '../data/patterns.json' assert { type: 'json' };
+import { loadJSON } from '../utils/jsonLoader.js';
+const enemyData = await loadJSON('./src/data/enemies.json');
+const modifierDefs = await loadJSON('./src/data/modifiers.json');
+const patternDefs = await loadJSON('./src/data/patterns.json');
 
 const DEFAULT_MODIFIER_CANDIDATES = 3;
 

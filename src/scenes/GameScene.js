@@ -15,8 +15,9 @@ import PauseMenu from '../ui/PauseMenu.js';
 import OptionsView from '../ui/OptionsView.js';
 import LocalizationSystem from '../systems/LocalizationSystem.js';
 import SaveManager from '../save/SaveManager.js';
-import wavesData from '../data/waves.json' assert { type: 'json' };
-import enemyData from '../data/enemies.json' assert { type: 'json' };
+import { loadJSON } from '../utils/jsonLoader.js';
+const wavesData = await loadJSON('./src/data/waves.json');
+const enemyData = await loadJSON('./src/data/enemies.json');
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
