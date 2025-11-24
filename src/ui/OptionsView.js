@@ -168,7 +168,7 @@ export default class OptionsView extends Phaser.GameObjects.Container {
       track,
       fill,
       valueText,
-      trackWidth
+      trackWidth: controlWidth
     };
   }
 
