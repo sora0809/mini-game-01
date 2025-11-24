@@ -16,6 +16,13 @@ const ENTRY_TYPES = {
   BUTTON: 'button'
 };
 
+const PANEL_WIDTH = 600;
+const PANEL_HEIGHT = 440;
+const PANEL_PADDING = 32;
+const LABEL_WIDTH = 190;
+const CONTROL_GAP = 20;
+const ROW_SPACING = 64;
+
 export default class OptionsView extends Phaser.GameObjects.Container {
   constructor(scene, callbacks = {}) {
     super(scene, 0, 0);
@@ -35,52 +42,71 @@ export default class OptionsView extends Phaser.GameObjects.Container {
 
   createElements() {
     this.overlay = this.scene.add.rectangle(0, 0, LOGICAL_WIDTH, LOGICAL_HEIGHT, 0x000000, 0.7).setOrigin(0, 0);
-    this.card = this.scene.add.rectangle(
-      LOGICAL_WIDTH / 2,
-      LOGICAL_HEIGHT / 2 - 10,
-      600,
-      440,
-      0x0b1524,
-      0.98
-    ).setStrokeStyle(3, 0x3dffec, 0.8);
+    this.panel = this.scene.add.container(LOGICAL_WIDTH / 2, LOGICAL_HEIGHT / 2);
+    this.card = this.scene.add
+      .rectangle(0, 0, PANEL_WIDTH, PANEL_HEIGHT, 0x0b1524, 0.98)
+      .setStrokeStyle(3, 0x3dffec, 0.8);
     this.titleText = this.scene.add
-      .text(LOGICAL_WIDTH / 2, LOGICAL_HEIGHT / 2 - 200, 'オプション', {
+      .text(0, -PANEL_HEIGHT / 2 + PANEL_PADDING, 'オプション', {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '18px',
         color: '#FFFFFF'
       })
-      .setOrigin(0.5);
+      .setOrigin(0.5, 0);
 
-    this.add([this.overlay, this.card, this.titleText]);
+    this.panel.add([this.card, this.titleText]);
+    this.add([this.overlay, this.panel]);
 
-    const startY = LOGICAL_HEIGHT / 2 - 130;
+    this.contentStartY = -PANEL_HEIGHT / 2 + PANEL_PADDING + 60;
     this.entries = [];
-    this.entries.push(this.createSliderEntry('ui.options.bgm', 'bgmVolume', startY));
-    this.entries.push(this.createSliderEntry('ui.options.se', 'seVolume', startY + 60));
-    this.entries.push(this.createToggleEntry('ui.options.flash', 'flashEffects', startY + 120));
-    this.entries.push(this.createLanguageEntry('ui.options.language', 'language', startY + 180));
-    this.entries.push(this.createButtonEntry('ui.common.ok', 'apply', LOGICAL_HEIGHT / 2 + 150, -90));
-    this.entries.push(this.createButtonEntry('ui.common.cancel', 'cancel', LOGICAL_HEIGHT / 2 + 150, 90));
+    this.entries.push(this.createSliderEntry('ui.options.bgm', 'bgmVolume', 0));
+    this.entries.push(this.createSliderEntry('ui.options.se', 'seVolume', 1));
+    this.entries.push(this.createToggleEntry('ui.options.flash', 'flashEffects', 2));
+    this.entries.push(this.createLanguageEntry('ui.options.language', 'language', 3));
+    this.entries.push(this.createButtonEntry('ui.common.ok', 'apply', -80));
+    this.entries.push(this.createButtonEntry('ui.common.cancel', 'cancel', -80, true));
   }
 
-  createSliderEntry(labelKey, key, posY) {
-    const trackWidth = 240;
-    const xCenter = LOGICAL_WIDTH / 2;
-    const labelX = xCenter - 220;
+  getRowY(rowIndex) {
+    return this.contentStartY + rowIndex * ROW_SPACING;
+  }
+
+  getLabelX() {
+    return -PANEL_WIDTH / 2 + PANEL_PADDING;
+  }
+
+  getControlMetrics() {
+    const controlLeft = this.getLabelX() + LABEL_WIDTH + CONTROL_GAP;
+    const controlWidth = PANEL_WIDTH - PANEL_PADDING * 2 - LABEL_WIDTH - CONTROL_GAP;
+    return { controlLeft, controlWidth };
+  }
+
+  createSliderEntry(labelKey, key, rowIndex) {
+    const rowY = this.getRowY(rowIndex);
+    const { controlLeft, controlWidth } = this.getControlMetrics();
     const labelText = this.scene.add
-      .text(labelX, posY, LocalizationSystem.t(labelKey), {
+      .text(this.getLabelX(), rowY, LocalizationSystem.t(labelKey), {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
       })
       .setOrigin(0, 0.5);
 
-    const track = this.scene.add.rectangle(xCenter, posY, trackWidth, 10, 0x172236, 1);
+    const track = this.scene.add.rectangle(
+      controlLeft + controlWidth / 2,
+      rowY,
+      controlWidth,
+      10,
+      0x172236,
+      1
+    );
     track.setStrokeStyle(1, 0x3dffec, 0.5);
     track.setInteractive();
-    const fill = this.scene.add.rectangle(xCenter - trackWidth / 2, posY, 0, 10, 0x3dffec, 1).setOrigin(0, 0.5);
+    const fill = this.scene.add
+      .rectangle(controlLeft, rowY, 0, 10, 0x3dffec, 1)
+      .setOrigin(0, 0.5);
     const valueText = this.scene.add
-      .text(xCenter + trackWidth / 2 + 20, posY, '0%', {
+      .text(controlLeft + controlWidth + 16, rowY, '0%', {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '12px',
         color: '#FFFFFF'
@@ -88,15 +114,15 @@ export default class OptionsView extends Phaser.GameObjects.Container {
       .setOrigin(0, 0.5);
 
     track.on('pointerdown', (pointer) => {
-      const localX = Phaser.Math.Clamp(pointer.x - (xCenter - trackWidth / 2), 0, trackWidth);
-      const ratio = Phaser.Math.Clamp(localX / trackWidth, 0, 1);
+      const localX = Phaser.Math.Clamp(pointer.x - (track.x - controlWidth / 2), 0, controlWidth);
+      const ratio = Phaser.Math.Clamp(localX / controlWidth, 0, 1);
       this.setSetting(key, ratio);
       this.updateSlider(key);
       this.notifyChange();
       this.setSelectionById(key);
     });
 
-    this.add([labelText, track, fill, valueText]);
+    this.panel.add([labelText, track, fill, valueText]);
 
     return {
       id: key,
@@ -110,20 +136,22 @@ export default class OptionsView extends Phaser.GameObjects.Container {
     };
   }
 
-  createToggleEntry(labelKey, key, posY) {
-    const xCenter = LOGICAL_WIDTH / 2;
-    const labelX = xCenter - 220;
+  createToggleEntry(labelKey, key, rowIndex) {
+    const rowY = this.getRowY(rowIndex);
+    const { controlLeft, controlWidth } = this.getControlMetrics();
     const labelText = this.scene.add
-      .text(labelX, posY, LocalizationSystem.t(labelKey), {
+      .text(this.getLabelX(), rowY, LocalizationSystem.t(labelKey), {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
       })
       .setOrigin(0, 0.5);
-    const box = this.scene.add.rectangle(xCenter + 20, posY, 220, 40, 0x1a2538, 0.9).setStrokeStyle(1, 0x3dffec, 0.6);
+    const box = this.scene.add
+      .rectangle(controlLeft + controlWidth / 2, rowY, controlWidth, 40, 0x1a2538, 0.9)
+      .setStrokeStyle(1, 0x3dffec, 0.6);
     box.setInteractive({ useHandCursor: true });
     const valueText = this.scene.add
-      .text(xCenter + 20, posY, 'ON', {
+      .text(controlLeft + controlWidth / 2, rowY, 'ON', {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
@@ -135,22 +163,29 @@ export default class OptionsView extends Phaser.GameObjects.Container {
       this.notifyChange();
       this.setSelectionById(key);
     });
-    this.add([labelText, box, valueText]);
+    this.panel.add([labelText, box, valueText]);
     return { id: key, type: ENTRY_TYPES.TOGGLE, box, valueText, labelKey, labelText };
   }
 
-  createLanguageEntry(labelKey, key, posY) {
-    const xCenter = LOGICAL_WIDTH / 2;
-    const labelX = xCenter - 220;
+  createLanguageEntry(labelKey, key, rowIndex) {
+    const rowY = this.getRowY(rowIndex);
+    const { controlLeft, controlWidth } = this.getControlMetrics();
     const labelText = this.scene.add
-      .text(labelX, posY, LocalizationSystem.t(labelKey), {
+      .text(this.getLabelX(), rowY, LocalizationSystem.t(labelKey), {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
       })
       .setOrigin(0, 0.5);
-    const jaBtn = this.scene.add.rectangle(xCenter - 70, posY + 30, 140, 40, 0x1f2a3f, 0.9).setStrokeStyle(1, 0x3dffec, 0.4);
-    const enBtn = this.scene.add.rectangle(xCenter + 70, posY + 30, 140, 40, 0x1f2a3f, 0.9).setStrokeStyle(1, 0x3dffec, 0.4);
+    const buttonWidth = (controlWidth - CONTROL_GAP) / 2;
+    const jaCenter = controlLeft + buttonWidth / 2;
+    const enCenter = controlLeft + buttonWidth + CONTROL_GAP + buttonWidth / 2;
+    const jaBtn = this.scene.add
+      .rectangle(jaCenter, rowY + 30, buttonWidth, 40, 0x1f2a3f, 0.9)
+      .setStrokeStyle(1, 0x3dffec, 0.4);
+    const enBtn = this.scene.add
+      .rectangle(enCenter, rowY + 30, buttonWidth, 40, 0x1f2a3f, 0.9)
+      .setStrokeStyle(1, 0x3dffec, 0.4);
     jaBtn.setInteractive({ useHandCursor: true });
     enBtn.setInteractive({ useHandCursor: true });
     const jaLabel = this.scene.add
@@ -179,7 +214,7 @@ export default class OptionsView extends Phaser.GameObjects.Container {
       this.notifyChange();
       this.setSelectionById(key);
     });
-    this.add([labelText, jaBtn, enBtn, jaLabel, enLabel]);
+    this.panel.add([labelText, jaBtn, enBtn, jaLabel, enLabel]);
     return {
       id: key,
       type: ENTRY_TYPES.CHOICE,
@@ -192,12 +227,14 @@ export default class OptionsView extends Phaser.GameObjects.Container {
     };
   }
 
-  createButtonEntry(labelKey, id, posY, offsetX) {
-    const x = LOGICAL_WIDTH / 2 + offsetX;
-    const bg = this.scene.add.rectangle(x, posY, 160, 36, 0x1a2538, 0.9).setStrokeStyle(2, 0x3dffec, 0.6);
+  createButtonEntry(labelKey, id, offsetY, isRight = false) {
+    const buttonWidth = 200;
+    const centerY = PANEL_HEIGHT / 2 - PANEL_PADDING + offsetY;
+    const x = (isRight ? 1 : -1) * (buttonWidth / 2 + 20);
+    const bg = this.scene.add.rectangle(x, centerY, buttonWidth, 40, 0x1a2538, 0.9).setStrokeStyle(2, 0x3dffec, 0.6);
     bg.setInteractive({ useHandCursor: true });
     const text = this.scene.add
-      .text(x, posY, LocalizationSystem.t(labelKey), {
+      .text(x, centerY, LocalizationSystem.t(labelKey), {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
@@ -210,7 +247,7 @@ export default class OptionsView extends Phaser.GameObjects.Container {
         this.emitCancel();
       }
     });
-    this.add([bg, text]);
+    this.panel.add([bg, text]);
     return { id, type: ENTRY_TYPES.BUTTON, labelKey, bg, text };
   }
 
