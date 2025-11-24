@@ -37,14 +37,14 @@ export default class OptionsView extends Phaser.GameObjects.Container {
     this.overlay = this.scene.add.rectangle(0, 0, LOGICAL_WIDTH, LOGICAL_HEIGHT, 0x000000, 0.7).setOrigin(0, 0);
     this.card = this.scene.add.rectangle(
       LOGICAL_WIDTH / 2,
-      LOGICAL_HEIGHT / 2,
+      LOGICAL_HEIGHT / 2 - 10,
       560,
       420,
       0x0b1524,
       0.98
     ).setStrokeStyle(3, 0x3dffec, 0.8);
     this.titleText = this.scene.add
-      .text(LOGICAL_WIDTH / 2, LOGICAL_HEIGHT / 2 - 180, 'オプション', {
+      .text(LOGICAL_WIDTH / 2, LOGICAL_HEIGHT / 2 - 190, 'オプション', {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '18px',
         color: '#FFFFFF'
@@ -53,7 +53,7 @@ export default class OptionsView extends Phaser.GameObjects.Container {
 
     this.add([this.overlay, this.card, this.titleText]);
 
-    const startY = LOGICAL_HEIGHT / 2 - 110;
+    const startY = LOGICAL_HEIGHT / 2 - 130;
     this.entries = [];
     this.entries.push(this.createSliderEntry('ui.options.bgm', 'bgmVolume', startY));
     this.entries.push(this.createSliderEntry('ui.options.se', 'seVolume', startY + 60));
@@ -120,7 +120,7 @@ export default class OptionsView extends Phaser.GameObjects.Container {
         color: '#FFFFFF'
       })
       .setOrigin(0, 0.5);
-    const box = this.scene.add.rectangle(xCenter + 10, posY, 180, 36, 0x1a2538, 0.9).setStrokeStyle(1, 0x3dffec, 0.6);
+    const box = this.scene.add.rectangle(xCenter + 10, posY, 190, 36, 0x1a2538, 0.9).setStrokeStyle(1, 0x3dffec, 0.6);
     box.setInteractive({ useHandCursor: true });
     const valueText = this.scene.add
       .text(xCenter + 10, posY, 'ON', {
@@ -149,8 +149,8 @@ export default class OptionsView extends Phaser.GameObjects.Container {
         color: '#FFFFFF'
       })
       .setOrigin(0, 0.5);
-    const jaBtn = this.scene.add.rectangle(xCenter - 70, posY + 30, 130, 32, 0x1f2a3f, 0.9).setStrokeStyle(1, 0x3dffec, 0.4);
-    const enBtn = this.scene.add.rectangle(xCenter + 60, posY + 30, 130, 32, 0x1f2a3f, 0.9).setStrokeStyle(1, 0x3dffec, 0.4);
+    const jaBtn = this.scene.add.rectangle(xCenter - 60, posY + 30, 120, 32, 0x1f2a3f, 0.9).setStrokeStyle(1, 0x3dffec, 0.4);
+    const enBtn = this.scene.add.rectangle(xCenter + 60, posY + 30, 120, 32, 0x1f2a3f, 0.9).setStrokeStyle(1, 0x3dffec, 0.4);
     jaBtn.setInteractive({ useHandCursor: true });
     enBtn.setInteractive({ useHandCursor: true });
     const jaLabel = this.scene.add
