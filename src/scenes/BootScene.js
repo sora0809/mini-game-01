@@ -10,7 +10,7 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.json('localization', 'data/localization.json');
+    this.load.json('localization', 'src/data/localization.json');
   }
 
   create() {
