@@ -32,7 +32,9 @@ export default class Enemy extends Phaser.GameObjects.Arc {
   }
 
   preUpdate(time, delta) {
-    super.preUpdate(time, delta);
+    if (typeof super.preUpdate === 'function') {
+      super.preUpdate(time, delta);
+    }
     if (!this.active || !this.body) {
       return;
     }
