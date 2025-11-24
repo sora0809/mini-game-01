@@ -43,7 +43,7 @@
     "ui.result.core": "取得コア",
     "ui.result.again": "もう一度プレイ",
     "ui.result.toTitle": "タイトルへ戻る",
-    "ui.result.toMeta": "メタ強化へ"
+    "ui.result.toMeta": "メタ強化へ",
     "perk.PERK_DASH_CD_I.name": "クイックステップ I",
     "perk.PERK_DASH_CD_I.desc": "ダッシュCD -15%",
     "perk.PERK_DASH_CD_II.name": "クイックステップ II",
@@ -173,7 +173,7 @@
     "ui.result.core": "Core Gain",
     "ui.result.again": "Play Again",
     "ui.result.toTitle": "Back to Title",
-    "ui.result.toMeta": "Go to Meta Upgrades"
+    "ui.result.toMeta": "Go to Meta Upgrades",
     "perk.PERK_DASH_CD_I.name": "Quickstep I",
     "perk.PERK_DASH_CD_I.desc": "Dash cooldown -15%",
     "perk.PERK_DASH_CD_II.name": "Quickstep II",
