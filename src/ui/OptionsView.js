@@ -120,6 +120,7 @@ export default class OptionsView extends Phaser.GameObjects.Container {
   createSliderEntry(labelKey, key, bounds) {
     const { centerY } = bounds;
     const { controlLeft, controlWidth } = this.getControlMetrics();
+    const trackWidth = controlWidth;
     const labelText = this.scene.add
       .text(this.getLabelX(), centerY, LocalizationSystem.t(labelKey), {
         fontFamily: 'Press Start 2P, sans-serif',
@@ -150,8 +151,8 @@ export default class OptionsView extends Phaser.GameObjects.Container {
       .setOrigin(0, 0.5);
 
     track.on('pointerdown', (pointer) => {
-      const localX = Phaser.Math.Clamp(pointer.x - (track.x - controlWidth / 2), 0, controlWidth);
-      const ratio = Phaser.Math.Clamp(localX / controlWidth, 0, 1);
+      const localX = Phaser.Math.Clamp(pointer.x - (track.x - trackWidth / 2), 0, trackWidth);
+      const ratio = Phaser.Math.Clamp(localX / trackWidth, 0, 1);
       this.setSetting(key, ratio);
       this.updateSlider(key);
       this.notifyChange();
@@ -168,7 +169,7 @@ export default class OptionsView extends Phaser.GameObjects.Container {
       track,
       fill,
       valueText,
-      trackWidth: controlWidth
+      trackWidth
     };
   }
 
