@@ -38,13 +38,13 @@ export default class OptionsView extends Phaser.GameObjects.Container {
     this.card = this.scene.add.rectangle(
       LOGICAL_WIDTH / 2,
       LOGICAL_HEIGHT / 2,
-      520,
-      400,
+      560,
+      420,
       0x0b1524,
       0.98
     ).setStrokeStyle(3, 0x3dffec, 0.8);
     this.titleText = this.scene.add
-      .text(LOGICAL_WIDTH / 2, LOGICAL_HEIGHT / 2 - 170, 'オプション', {
+      .text(LOGICAL_WIDTH / 2, LOGICAL_HEIGHT / 2 - 180, 'オプション', {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '18px',
         color: '#FFFFFF'
@@ -53,7 +53,7 @@ export default class OptionsView extends Phaser.GameObjects.Container {
 
     this.add([this.overlay, this.card, this.titleText]);
 
-    const startY = LOGICAL_HEIGHT / 2 - 100;
+    const startY = LOGICAL_HEIGHT / 2 - 110;
     this.entries = [];
     this.entries.push(this.createSliderEntry('ui.options.bgm', 'bgmVolume', startY));
     this.entries.push(this.createSliderEntry('ui.options.se', 'seVolume', startY + 60));
@@ -64,10 +64,11 @@ export default class OptionsView extends Phaser.GameObjects.Container {
   }
 
   createSliderEntry(labelKey, key, posY) {
-    const trackWidth = 220;
+    const trackWidth = 240;
     const xCenter = LOGICAL_WIDTH / 2;
+    const labelX = xCenter - 220;
     const labelText = this.scene.add
-      .text(xCenter - 180, posY, LocalizationSystem.t(labelKey), {
+      .text(labelX, posY, LocalizationSystem.t(labelKey), {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
@@ -111,17 +112,18 @@ export default class OptionsView extends Phaser.GameObjects.Container {
 
   createToggleEntry(labelKey, key, posY) {
     const xCenter = LOGICAL_WIDTH / 2;
+    const labelX = xCenter - 220;
     const labelText = this.scene.add
-      .text(xCenter - 180, posY, LocalizationSystem.t(labelKey), {
+      .text(labelX, posY, LocalizationSystem.t(labelKey), {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
       })
       .setOrigin(0, 0.5);
-    const box = this.scene.add.rectangle(xCenter + 40, posY, 160, 36, 0x1a2538, 0.9).setStrokeStyle(1, 0x3dffec, 0.6);
+    const box = this.scene.add.rectangle(xCenter + 10, posY, 180, 36, 0x1a2538, 0.9).setStrokeStyle(1, 0x3dffec, 0.6);
     box.setInteractive({ useHandCursor: true });
     const valueText = this.scene.add
-      .text(xCenter + 40, posY, 'ON', {
+      .text(xCenter + 10, posY, 'ON', {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
@@ -139,15 +141,16 @@ export default class OptionsView extends Phaser.GameObjects.Container {
 
   createLanguageEntry(labelKey, key, posY) {
     const xCenter = LOGICAL_WIDTH / 2;
+    const labelX = xCenter - 220;
     const labelText = this.scene.add
-      .text(xCenter - 180, posY, LocalizationSystem.t(labelKey), {
+      .text(labelX, posY, LocalizationSystem.t(labelKey), {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
       })
       .setOrigin(0, 0.5);
-    const jaBtn = this.scene.add.rectangle(xCenter - 40, posY + 30, 120, 32, 0x1f2a3f, 0.9).setStrokeStyle(1, 0x3dffec, 0.4);
-    const enBtn = this.scene.add.rectangle(xCenter + 90, posY + 30, 120, 32, 0x1f2a3f, 0.9).setStrokeStyle(1, 0x3dffec, 0.4);
+    const jaBtn = this.scene.add.rectangle(xCenter - 70, posY + 30, 130, 32, 0x1f2a3f, 0.9).setStrokeStyle(1, 0x3dffec, 0.4);
+    const enBtn = this.scene.add.rectangle(xCenter + 60, posY + 30, 130, 32, 0x1f2a3f, 0.9).setStrokeStyle(1, 0x3dffec, 0.4);
     jaBtn.setInteractive({ useHandCursor: true });
     enBtn.setInteractive({ useHandCursor: true });
     const jaLabel = this.scene.add
