@@ -6,6 +6,8 @@ const BULLET_COLOR = 0x3dffec;
 const BULLET_SPEED = 360;
 const BULLET_LIFESPAN = 6000;
 
+const arcPreUpdate = Phaser.GameObjects.Arc.prototype.preUpdate;
+
 export default class Bullet extends Phaser.GameObjects.Arc {
   constructor(scene, x = 0, y = 0) {
     super(scene, x, y, BULLET_RADIUS, 0, 360, false, BULLET_COLOR, 1);
@@ -69,7 +71,9 @@ export default class Bullet extends Phaser.GameObjects.Arc {
   }
 
   preUpdate(time, delta) {
-    super.preUpdate(time, delta);
+    if (typeof arcPreUpdate === 'function') {
+      arcPreUpdate.call(this, time, delta);
+    }
     if (!this.active) return;
 
     this.elapsed += delta;

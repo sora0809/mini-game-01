@@ -1,5 +1,7 @@
 import * as Phaser from 'phaser';
 
+const arcPreUpdate = Phaser.GameObjects.Arc.prototype.preUpdate;
+
 export default class Enemy extends Phaser.GameObjects.Arc {
   constructor(scene, x, y, config) {
     const radius = config.collisionRadius ?? 12;
@@ -32,8 +34,8 @@ export default class Enemy extends Phaser.GameObjects.Arc {
   }
 
   preUpdate(time, delta) {
-    if (typeof super.preUpdate === 'function') {
-      super.preUpdate(time, delta);
+    if (typeof arcPreUpdate === 'function') {
+      arcPreUpdate.call(this, time, delta);
     }
     if (!this.active || !this.body) {
       return;
