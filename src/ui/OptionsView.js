@@ -21,12 +21,12 @@ const PANEL_HEIGHT = 420;
 const PANEL_PADDING = 32;
 const LABEL_WIDTH = 190;
 const CONTROL_GAP = 20;
-const ROW_GAP = 16;
-const ROW_HEIGHTS = {
-  [ENTRY_TYPES.SLIDER]: 44,
-  [ENTRY_TYPES.TOGGLE]: 52,
-  [ENTRY_TYPES.CHOICE]: 82,
-  buttons: 60
+const TITLE_OFFSET = 52;
+const ROW_SPECS = {
+  [ENTRY_TYPES.SLIDER]: { height: 28, marginTop: 6, marginBottom: 6 },
+  [ENTRY_TYPES.TOGGLE]: { height: 52, marginTop: 10, marginBottom: 10 },
+  [ENTRY_TYPES.CHOICE]: { height: 92, marginTop: 12, marginBottom: 12 },
+  buttons: { height: 54, marginTop: 18, marginBottom: 0 }
 };
 
 export default class OptionsView extends Phaser.GameObjects.Container {
@@ -71,24 +71,30 @@ export default class OptionsView extends Phaser.GameObjects.Container {
       { type: 'buttons' }
     ];
 
-    const innerTop = -PANEL_HEIGHT / 2 + PANEL_PADDING + 40;
+    const innerTop = -PANEL_HEIGHT / 2 + PANEL_PADDING + TITLE_OFFSET;
     let currentY = innerTop;
     this.entries = [];
     layout.forEach((row) => {
-      const centerY = currentY + ROW_HEIGHTS[row.type] / 2;
+      const spec = ROW_SPECS[row.type];
+      if (!spec) return;
+      currentY += spec.marginTop;
+      const rowTop = currentY;
+      const rowBottom = rowTop + spec.height;
+      const centerY = rowTop + spec.height / 2;
+      const bounds = { top: rowTop, bottom: rowBottom, centerY };
       switch (row.type) {
         case ENTRY_TYPES.SLIDER:
-          this.entries.push(this.createSliderEntry(row.labelKey, row.id, centerY));
+          this.entries.push(this.createSliderEntry(row.labelKey, row.id, bounds));
           break;
         case ENTRY_TYPES.TOGGLE:
-          this.entries.push(this.createToggleEntry(row.labelKey, row.id, centerY));
+          this.entries.push(this.createToggleEntry(row.labelKey, row.id, bounds));
           break;
         case ENTRY_TYPES.CHOICE:
-          this.entries.push(this.createLanguageEntry(row.labelKey, row.id, centerY));
+          this.entries.push(this.createLanguageEntry(row.labelKey, row.id, bounds));
           break;
         case 'buttons':
           this.entries.push(
-            ...this.createButtonRow(centerY, [
+            ...this.createButtonRow(bounds, [
               { labelKey: 'ui.common.ok', id: 'apply' },
               { labelKey: 'ui.common.cancel', id: 'cancel' }
             ])
@@ -97,7 +103,7 @@ export default class OptionsView extends Phaser.GameObjects.Container {
         default:
           break;
       }
-      currentY += ROW_HEIGHTS[row.type] + ROW_GAP;
+      currentY = rowBottom + spec.marginBottom;
     });
   }
 
@@ -111,7 +117,8 @@ export default class OptionsView extends Phaser.GameObjects.Container {
     return { controlLeft, controlWidth };
   }
 
-  createSliderEntry(labelKey, key, centerY) {
+  createSliderEntry(labelKey, key, bounds) {
+    const { centerY } = bounds;
     const { controlLeft, controlWidth } = this.getControlMetrics();
     const labelText = this.scene.add
       .text(this.getLabelX(), centerY, LocalizationSystem.t(labelKey), {
@@ -165,21 +172,22 @@ export default class OptionsView extends Phaser.GameObjects.Container {
     };
   }
 
-  createToggleEntry(labelKey, key, centerY) {
+  createToggleEntry(labelKey, key, bounds) {
+    const { centerY, top, bottom } = bounds;
     const { controlLeft, controlWidth } = this.getControlMetrics();
     const labelText = this.scene.add
-      .text(this.getLabelX(), centerY, LocalizationSystem.t(labelKey), {
+      .text(this.getLabelX(), top + 14, LocalizationSystem.t(labelKey), {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
       })
-      .setOrigin(0, 0.5);
+      .setOrigin(0, 0);
     const box = this.scene.add
-      .rectangle(controlLeft + controlWidth / 2, centerY, controlWidth, 40, 0x1a2538, 0.9)
+      .rectangle(controlLeft + controlWidth / 2, bottom - 20, controlWidth, 40, 0x1a2538, 0.9)
       .setStrokeStyle(1, 0x3dffec, 0.6);
     box.setInteractive({ useHandCursor: true });
     const valueText = this.scene.add
-      .text(controlLeft + controlWidth / 2, centerY, 'ON', {
+      .text(controlLeft + controlWidth / 2, box.y, 'ON', {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
@@ -195,23 +203,24 @@ export default class OptionsView extends Phaser.GameObjects.Container {
     return { id: key, type: ENTRY_TYPES.TOGGLE, box, valueText, labelKey, labelText };
   }
 
-  createLanguageEntry(labelKey, key, centerY) {
+  createLanguageEntry(labelKey, key, bounds) {
+    const { centerY, top, bottom } = bounds;
     const { controlLeft, controlWidth } = this.getControlMetrics();
     const labelText = this.scene.add
-      .text(this.getLabelX(), centerY, LocalizationSystem.t(labelKey), {
+      .text(this.getLabelX(), top + 10, LocalizationSystem.t(labelKey), {
         fontFamily: 'Press Start 2P, sans-serif',
         fontSize: '14px',
         color: '#FFFFFF'
       })
-      .setOrigin(0, 0.5);
+      .setOrigin(0, 0);
     const buttonWidth = (controlWidth - CONTROL_GAP) / 2;
     const jaCenter = controlLeft + buttonWidth / 2;
     const enCenter = controlLeft + buttonWidth + CONTROL_GAP + buttonWidth / 2;
     const jaBtn = this.scene.add
-      .rectangle(jaCenter, centerY + 30, buttonWidth, 40, 0x1f2a3f, 0.9)
+      .rectangle(jaCenter, bottom - 22, buttonWidth, 40, 0x1f2a3f, 0.9)
       .setStrokeStyle(1, 0x3dffec, 0.4);
     const enBtn = this.scene.add
-      .rectangle(enCenter, centerY + 30, buttonWidth, 40, 0x1f2a3f, 0.9)
+      .rectangle(enCenter, bottom - 22, buttonWidth, 40, 0x1f2a3f, 0.9)
       .setStrokeStyle(1, 0x3dffec, 0.4);
     jaBtn.setInteractive({ useHandCursor: true });
     enBtn.setInteractive({ useHandCursor: true });
@@ -254,7 +263,8 @@ export default class OptionsView extends Phaser.GameObjects.Container {
     };
   }
 
-  createButtonRow(centerY, buttons) {
+  createButtonRow(bounds, buttons) {
+    const { centerY } = bounds;
     const buttonWidth = 200;
     const spacing = 30;
     const totalWidth = buttons.length * buttonWidth + (buttons.length - 1) * spacing;
