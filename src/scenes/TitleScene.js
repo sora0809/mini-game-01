@@ -264,7 +264,13 @@ export default class TitleScene extends Phaser.Scene {
     this.selectedMenuIndex = clamped;
     this.menuButtons.forEach((btn, idx) => {
       const isSel = idx === clamped;
-      if (!btn?.bg || !btn?.label || !btn.label.active) {
+      if (
+        !btn?.bg ||
+        !btn?.label ||
+        !btn.label.active ||
+        !btn.label.texture ||
+        !btn.label.frame
+      ) {
         return;
       }
       btn.bg.setFillStyle(isSel ? 0x24324f : 0x162238, 1);
@@ -310,7 +316,13 @@ export default class TitleScene extends Phaser.Scene {
     this.runSetupIndex = index;
     this.runOptionButtons.forEach((btn, idx) => {
       const selected = idx === index;
-      if (!btn?.bg || !btn?.label || !btn.label.active) {
+      if (
+        !btn?.bg ||
+        !btn?.label ||
+        !btn.label.active ||
+        !btn.label.texture ||
+        !btn.label.frame
+      ) {
         return;
       }
       btn.bg.setFillStyle(selected ? 0x2b3e60 : 0x1b2940, selected ? 1 : 0.9);
