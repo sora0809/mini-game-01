@@ -9,17 +9,28 @@ export default class BootScene extends Phaser.Scene {
     this.saveData = null;
   }
 
-  preload() {
-    this.load.json('localization', 'src/data/localization.json');
-  }
-
   create() {
-    const localizationData = this.cache.json.get('localization') || {};
     this.saveManager = new SaveManager();
     this.saveData = this.saveManager.load();
     const savedLang = this.saveData.settings?.language || 'ja';
-    LocalizationSystem.init(localizationData, savedLang);
-    LocalizationSystem.setLanguage(savedLang);
-    this.scene.start('TitleScene');
+    this.loadLocalizationData()
+      .catch((err) => {
+        console.warn('[BootScene] Failed to load localization data:', err);
+        return {};
+      })
+      .then((localizationData) => {
+        LocalizationSystem.init(localizationData, savedLang);
+        LocalizationSystem.setLanguage(savedLang);
+        this.scene.start('TitleScene');
+      });
+  }
+
+  async loadLocalizationData() {
+    const url = new URL('../data/localization.json', import.meta.url);
+    const response = await fetch(url, { cache: 'no-cache' });
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} ${response.statusText}`);
+    }
+    return response.json();
   }
 }
