@@ -13,6 +13,15 @@ import MetaScene from './scenes/MetaScene.js';
 import GameScene from './scenes/GameScene.js';
 import ResultScene from './scenes/ResultScene.js';
 
+// Guard against Phaser crashing when setColor is called on destroyed text objects.
+const originalTextSetColor = Phaser.GameObjects.Text.prototype.setColor;
+Phaser.GameObjects.Text.prototype.setColor = function patchedSetColor(color) {
+  if (!this.frame || !this.frame.data) {
+    return this;
+  }
+  return originalTextSetColor.call(this, color);
+};
+
 const config = {
   type: Phaser.AUTO,
   backgroundColor: BACKGROUND_COLOR,
