@@ -17,7 +17,7 @@ const ENTRY_TYPES = {
 };
 
 const PANEL_WIDTH = 600;
-const PANEL_HEIGHT = 460;
+const PANEL_HEIGHT = 520;
 const PANEL_PADDING = 32;
 const LABEL_WIDTH = 190;
 const CONTROL_GAP = 24;
@@ -71,12 +71,8 @@ export default class OptionsView extends Phaser.GameObjects.Container {
       { type: 'buttons' }
     ];
 
-    const availableHeight = PANEL_HEIGHT - PANEL_PADDING * 2 - 80;
-    const totalContentHeight =
-      layout.reduce((sum, row) => sum + ROW_HEIGHTS[row.type], 0) + ROW_GAP * (layout.length - 1);
-    const startOffset = -availableHeight / 2 + (availableHeight - totalContentHeight) / 2;
-
-    let currentY = startOffset;
+    const innerTop = -PANEL_HEIGHT / 2 + PANEL_PADDING;
+    let currentY = innerTop;
     this.entries = [];
     layout.forEach((row) => {
       const centerY = currentY + ROW_HEIGHTS[row.type] / 2;
