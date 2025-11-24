@@ -264,18 +264,12 @@ export default class TitleScene extends Phaser.Scene {
     this.selectedMenuIndex = clamped;
     this.menuButtons.forEach((btn, idx) => {
       const isSel = idx === clamped;
-      if (
-        !btn?.bg ||
-        !btn?.label ||
-        !btn.label.active ||
-        !btn.label.texture ||
-        !btn.label.frame
-      ) {
+      if (!btn?.bg || !btn?.label || !btn.label.active) {
         return;
       }
       btn.bg.setFillStyle(isSel ? 0x24324f : 0x162238, 1);
       btn.bg.setStrokeStyle(2, isSel ? 0x3dffec : 0x3dffec, isSel ? 0.9 : 0.4);
-      btn.label.setColor(isSel ? '#3DFFEC' : '#FFFFFF');
+      btn.label.setTint(isSel ? 0x3dffec : 0xffffff);
     });
   }
 
@@ -316,18 +310,12 @@ export default class TitleScene extends Phaser.Scene {
     this.runSetupIndex = index;
     this.runOptionButtons.forEach((btn, idx) => {
       const selected = idx === index;
-      if (
-        !btn?.bg ||
-        !btn?.label ||
-        !btn.label.active ||
-        !btn.label.texture ||
-        !btn.label.frame
-      ) {
+      if (!btn?.bg || !btn?.label || !btn.label.active) {
         return;
       }
       btn.bg.setFillStyle(selected ? 0x2b3e60 : 0x1b2940, selected ? 1 : 0.9);
       btn.bg.setStrokeStyle(2, selected ? 0x3dffec : 0xffffff, selected ? 0.9 : 0.3);
-      btn.label.setColor(selected ? '#3DFFEC' : '#FFFFFF');
+      btn.label.setTint(selected ? 0x3dffec : 0xffffff);
     });
   }
 
