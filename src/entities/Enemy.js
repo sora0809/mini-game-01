@@ -1,7 +1,5 @@
 import * as Phaser from 'phaser';
 
-const arcPreUpdate = Phaser.GameObjects.Arc.prototype.preUpdate;
-
 export default class Enemy extends Phaser.GameObjects.Arc {
   constructor(scene, x, y, config) {
     const radius = config.collisionRadius ?? 12;
@@ -31,12 +29,11 @@ export default class Enemy extends Phaser.GameObjects.Arc {
 
   setTarget(target) {
     this.target = target;
+    this.updateHandler = this.handleSceneUpdate.bind(this);
+    scene.events.on(Phaser.Scenes.Events.UPDATE, this.updateHandler);
   }
 
-  preUpdate(time, delta) {
-    if (typeof arcPreUpdate === 'function') {
-      arcPreUpdate.call(this, time, delta);
-    }
+  handleSceneUpdate() {
     if (!this.active || !this.body) {
       return;
     }
@@ -86,6 +83,11 @@ export default class Enemy extends Phaser.GameObjects.Arc {
     this.setVisible(false);
     this.emit('enemy-killed', this);
     this.destroy();
+  }
+
+  destroy(fromScene) {
+    this.scene?.events?.off(Phaser.Scenes.Events.UPDATE, this.updateHandler, this);
+    super.destroy(fromScene);
   }
 
   setSubPatternId(patternId) {
