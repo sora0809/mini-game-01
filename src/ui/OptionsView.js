@@ -17,16 +17,16 @@ const ENTRY_TYPES = {
 };
 
 const PANEL_WIDTH = 600;
-const PANEL_HEIGHT = 520;
+const PANEL_HEIGHT = 420;
 const PANEL_PADDING = 32;
 const LABEL_WIDTH = 190;
-const CONTROL_GAP = 24;
-const ROW_GAP = 24;
+const CONTROL_GAP = 20;
+const ROW_GAP = 16;
 const ROW_HEIGHTS = {
-  [ENTRY_TYPES.SLIDER]: 52,
-  [ENTRY_TYPES.TOGGLE]: 60,
-  [ENTRY_TYPES.CHOICE]: 90,
-  buttons: 70
+  [ENTRY_TYPES.SLIDER]: 44,
+  [ENTRY_TYPES.TOGGLE]: 52,
+  [ENTRY_TYPES.CHOICE]: 82,
+  buttons: 60
 };
 
 export default class OptionsView extends Phaser.GameObjects.Container {
@@ -71,7 +71,7 @@ export default class OptionsView extends Phaser.GameObjects.Container {
       { type: 'buttons' }
     ];
 
-    const innerTop = -PANEL_HEIGHT / 2 + PANEL_PADDING;
+    const innerTop = -PANEL_HEIGHT / 2 + PANEL_PADDING + 40;
     let currentY = innerTop;
     this.entries = [];
     layout.forEach((row) => {
