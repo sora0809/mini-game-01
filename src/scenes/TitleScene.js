@@ -269,7 +269,6 @@ export default class TitleScene extends Phaser.Scene {
       }
       btn.bg.setFillStyle(isSel ? 0x24324f : 0x162238, 1);
       btn.bg.setStrokeStyle(2, isSel ? 0x3dffec : 0x3dffec, isSel ? 0.9 : 0.4);
-      btn.label.setTint(isSel ? 0x3dffec : 0xffffff);
     });
   }
 
@@ -315,7 +314,6 @@ export default class TitleScene extends Phaser.Scene {
       }
       btn.bg.setFillStyle(selected ? 0x2b3e60 : 0x1b2940, selected ? 1 : 0.9);
       btn.bg.setStrokeStyle(2, selected ? 0x3dffec : 0xffffff, selected ? 0.9 : 0.3);
-      btn.label.setTint(selected ? 0x3dffec : 0xffffff);
     });
   }
 
