@@ -25,12 +25,13 @@ export default class Enemy extends Phaser.GameObjects.Arc {
     body.setAllowGravity(false);
     body.setImmovable(false);
     body.setCollideWorldBounds(true);
+
+    this.updateHandler = this.handleSceneUpdate.bind(this);
+    this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.updateHandler);
   }
 
   setTarget(target) {
     this.target = target;
-    this.updateHandler = this.handleSceneUpdate.bind(this);
-    scene.events.on(Phaser.Scenes.Events.UPDATE, this.updateHandler);
   }
 
   handleSceneUpdate() {
