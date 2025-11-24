@@ -47,6 +47,12 @@ export default class TitleScene extends Phaser.Scene {
       ...(this.saveData.settings ?? {})
     };
     this.currentSettings.language = LocalizationSystem.getLanguage();
+    this.menuButtons = [];
+    this.runOptionButtons = [];
+    this.isRunSetupOpen = false;
+    this.isOptionsOpen = false;
+    this.runSetupContainer = null;
+    this.optionsView = null;
     this.createBackground();
     this.createMenu();
     this.createRunSetupPanel();
