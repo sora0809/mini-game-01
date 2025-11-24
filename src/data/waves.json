@@ -1,0 +1,95 @@
+[
+  {
+    "id": "WAVE_1",
+    "number": 1,
+    "type": "kill_all",
+    "timeLimit": 0,
+    "spawns": [
+      { "enemyId": "EN_GRUNT", "count": 6, "spawnArea": "top/random", "delay": 0 }
+    ]
+  },
+  {
+    "id": "WAVE_2",
+    "number": 2,
+    "type": "kill_all",
+    "timeLimit": 0,
+    "spawns": [
+      { "enemyId": "EN_GRUNT", "count": 6, "spawnArea": "top/random", "delay": 0 },
+      { "enemyId": "EN_SNIPER", "count": 3, "spawnArea": "top", "delay": 2 }
+    ]
+  },
+  {
+    "id": "WAVE_3",
+    "number": 3,
+    "type": "survive",
+    "timeLimit": 60,
+    "spawns": [
+      { "enemyId": "EN_ORBITER", "count": 4, "spawnArea": "random", "delay": 0 },
+      { "enemyId": "EN_GRUNT", "count": 4, "spawnArea": "random", "delay": 5 }
+    ]
+  },
+  {
+    "id": "WAVE_4",
+    "number": 4,
+    "type": "kill_all",
+    "timeLimit": 0,
+    "spawns": [
+      { "enemyId": "EN_GRUNT", "count": 10, "spawnArea": "random", "delay": 0 },
+      { "enemyId": "EN_SNIPER", "count": 4, "spawnArea": "top", "delay": 3 },
+      { "enemyId": "EN_MINE", "count": 4, "spawnArea": "random", "delay": 6 }
+    ]
+  },
+  {
+    "id": "WAVE_5",
+    "number": 5,
+    "type": "kill_all",
+    "timeLimit": 0,
+    "spawns": [
+      { "enemyId": "BOSS_CORE_GUARD", "count": 1, "spawnArea": "center", "delay": 0 }
+    ]
+  },
+  {
+    "id": "WAVE_6",
+    "number": 6,
+    "type": "kill_all",
+    "timeLimit": 0,
+    "spawns": [
+      { "enemyId": "EN_ELITE_SNIPER", "count": 1, "spawnArea": "top", "delay": 0 },
+      { "enemyId": "EN_GRUNT", "count": 8, "spawnArea": "random", "delay": 2 },
+      { "enemyId": "EN_ORBITER", "count": 4, "spawnArea": "random", "delay": 4 },
+      { "enemyId": "EN_SWARMER", "count": 6, "spawnArea": "left_right", "delay": 6 }
+    ]
+  },
+  {
+    "id": "WAVE_7",
+    "number": 7,
+    "type": "survive",
+    "timeLimit": 70,
+    "spawns": [
+      { "enemyId": "EN_SWARMER", "count": 12, "spawnArea": "left_right", "delay": 0 },
+      { "enemyId": "EN_ORBITER", "count": 6, "spawnArea": "random", "delay": 4 },
+      { "enemyId": "EN_MINE", "count": 6, "spawnArea": "random", "delay": 8 }
+    ]
+  },
+  {
+    "id": "WAVE_8",
+    "number": 8,
+    "type": "kill_all",
+    "timeLimit": 0,
+    "spawns": [
+      { "enemyId": "EN_ELITE_SNIPER", "count": 1, "spawnArea": "top", "delay": 0 },
+      { "enemyId": "EN_ELITE_ORBITER", "count": 1, "spawnArea": "random", "delay": 0 },
+      { "enemyId": "EN_GRUNT", "count": 8, "spawnArea": "random", "delay": 3 },
+      { "enemyId": "EN_SWARMER", "count": 10, "spawnArea": "left_right", "delay": 5 }
+    ]
+  },
+  {
+    "id": "WAVE_9",
+    "number": 9,
+    "type": "kill_all",
+    "timeLimit": 0,
+    "spawns": [
+      { "enemyId": "BOSS_CORE_HEART", "count": 1, "spawnArea": "center", "delay": 0 }
+    ]
+  }
+]

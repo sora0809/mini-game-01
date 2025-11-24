@@ -1,0 +1,57 @@
+{
+  "PAT_RING_SMALL": {
+    "id": "PAT_RING_SMALL",
+    "type": "ring",
+    "bulletCount": 16,
+    "baseSpeed": 180
+  },
+  "PAT_RING_LARGE": {
+    "id": "PAT_RING_LARGE",
+    "type": "ring",
+    "bulletCount": 32,
+    "baseSpeed": 140
+  },
+  "PAT_FAN_SHORT": {
+    "id": "PAT_FAN_SHORT",
+    "type": "fan",
+    "bulletCount": 7,
+    "spreadAngle": 60,
+    "baseSpeed": 200,
+    "aimAtPlayer": false
+  },
+  "PAT_FAN_WIDE": {
+    "id": "PAT_FAN_WIDE",
+    "type": "fan",
+    "bulletCount": 11,
+    "spreadAngle": 120,
+    "baseSpeed": 180,
+    "randomOffset": 10,
+    "aimAtPlayer": true
+  },
+  "PAT_AIMED_SINGLE": {
+    "id": "PAT_AIMED_SINGLE",
+    "type": "aimed_single",
+    "bulletCount": 1,
+    "baseSpeed": 260
+  },
+  "PAT_AIMED_BURST": {
+    "id": "PAT_AIMED_BURST",
+    "type": "aimed_burst",
+    "bulletCount": 3,
+    "baseSpeed": 230,
+    "burstInterval": 80
+  },
+  "PAT_SPIRAL": {
+    "id": "PAT_SPIRAL",
+    "type": "spiral",
+    "bulletCount": 2,
+    "baseSpeed": 190,
+    "angleStep": 15
+  },
+  "PAT_RAIN": {
+    "id": "PAT_RAIN",
+    "type": "rain",
+    "bulletCount": 12,
+    "baseSpeed": 220
+  }
+}

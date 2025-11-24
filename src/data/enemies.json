@@ -1,0 +1,103 @@
+{
+  "EN_GRUNT": {
+    "id": "EN_GRUNT",
+    "name": "グラントコア",
+    "maxHp": 12,
+    "speed": 70,
+    "collisionRadius": 12,
+    "basePatternId": "PAT_RING_SMALL",
+    "patternInterval": 1.8,
+    "expReward": 3,
+    "color": 16736459
+  },
+  "EN_SNIPER": {
+    "id": "EN_SNIPER",
+    "name": "スナイパーコア",
+    "maxHp": 10,
+    "speed": 40,
+    "collisionRadius": 12,
+    "basePatternId": "PAT_AIMED_SINGLE",
+    "patternInterval": 1.2,
+    "expReward": 4,
+    "color": 16746563
+  },
+  "EN_ORBITER": {
+    "id": "EN_ORBITER",
+    "name": "オービターコア",
+    "maxHp": 18,
+    "speed": 60,
+    "collisionRadius": 14,
+    "basePatternId": "PAT_FAN_WIDE",
+    "patternInterval": 2,
+    "expReward": 5,
+    "color": 16731115
+  },
+  "EN_SWARMER": {
+    "id": "EN_SWARMER",
+    "name": "スウォーマーコア",
+    "maxHp": 6,
+    "speed": 120,
+    "collisionRadius": 10,
+    "basePatternId": "PAT_FAN_SHORT",
+    "patternInterval": 1.5,
+    "expReward": 3,
+    "color": 16727834
+  },
+  "EN_MINE": {
+    "id": "EN_MINE",
+    "name": "マインコア",
+    "maxHp": 8,
+    "speed": 0,
+    "collisionRadius": 16,
+    "basePatternId": "PAT_RING_LARGE",
+    "patternInterval": 3,
+    "expReward": 2,
+    "color": 16743283
+  },
+  "EN_ELITE_SNIPER": {
+    "id": "EN_ELITE_SNIPER",
+    "name": "エリートスナイパー",
+    "maxHp": 26,
+    "speed": 50,
+    "collisionRadius": 14,
+    "basePatternId": "PAT_AIMED_BURST",
+    "patternInterval": 1,
+    "expReward": 10,
+    "color": 16729122
+  },
+  "EN_ELITE_ORBITER": {
+    "id": "EN_ELITE_ORBITER",
+    "name": "エリートオービター",
+    "maxHp": 32,
+    "speed": 70,
+    "collisionRadius": 16,
+    "basePatternId": "PAT_SPIRAL",
+    "patternInterval": 1.8,
+    "expReward": 12,
+    "color": 16724838
+  },
+  "BOSS_CORE_GUARD": {
+    "id": "BOSS_CORE_GUARD",
+    "name": "コアガード",
+    "maxHp": 300,
+    "speed": 40,
+    "collisionRadius": 32,
+    "basePatternId": "PAT_RING_SMALL",
+    "patternInterval": 1.5,
+    "expReward": 40,
+    "color": 16711744,
+    "type": "boss"
+  },
+  "BOSS_CORE_HEART": {
+    "id": "BOSS_CORE_HEART",
+    "name": "コアハート",
+    "maxHp": 500,
+    "speed": 50,
+    "collisionRadius": 36,
+    "basePatternId": "PAT_RING_LARGE",
+    "patternInterval": 1.2,
+    "expReward": 80,
+    "color": 11162879,
+    "type": "boss"
+  }
+}

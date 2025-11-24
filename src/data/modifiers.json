@@ -1,0 +1,52 @@
+{
+  "MOD_SLOW_START": {
+    "id": "MOD_SLOW_START",
+    "type": "speed_slow_start",
+    "params": {
+      "startScale": 0.4,
+      "endScale": 1.0,
+      "duration": 500
+    }
+  },
+  "MOD_ACCELERATE": {
+    "id": "MOD_ACCELERATE",
+    "type": "speed_accelerate",
+    "params": {
+      "startScale": 1.0,
+      "endScale": 1.4,
+      "duration": 3000
+    }
+  },
+  "MOD_WAVE": {
+    "id": "MOD_WAVE",
+    "type": "wave",
+    "params": {
+      "amplitudeDeg": 20,
+      "period": 800
+    }
+  },
+  "MOD_SPLIT": {
+    "id": "MOD_SPLIT",
+    "type": "split",
+    "params": {
+      "delay": 1200,
+      "angleOffsetDeg": 15
+    }
+  },
+  "MOD_DECAY": {
+    "id": "MOD_DECAY",
+    "type": "decay",
+    "params": {
+      "lifespan": 3000
+    }
+  },
+  "MOD_HOMING_LIGHT": {
+    "id": "MOD_HOMING_LIGHT",
+    "type": "homing_light",
+    "params": {
+      "turnInterval": 300,
+      "turnAmountDeg": 3,
+      "duration": 1500
+    }
+  }
+}

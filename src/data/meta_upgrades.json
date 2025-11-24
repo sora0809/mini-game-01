@@ -1,0 +1,14 @@
+[
+  {"id":"META_HP_MAX_I","nameKey":"meta.META_HP_MAX_I.name","descKey":"meta.META_HP_MAX_I.desc","name":"基礎体力 I","description":"初期最大HP+1","maxLevel":1,"cost":40,"requires":[],"effects":{"initialHpIncrease":1}},
+  {"id":"META_HP_MAX_II","nameKey":"meta.META_HP_MAX_II.name","descKey":"meta.META_HP_MAX_II.desc","name":"基礎体力 II","description":"初期最大HPさらに+1","maxLevel":1,"cost":60,"requires":["META_HP_MAX_I"],"effects":{"initialHpIncrease":1}},
+  {"id":"META_DASH_CD_I","nameKey":"meta.META_DASH_CD_I.name","descKey":"meta.META_DASH_CD_I.desc","name":"再起動効率 I","description":"ダッシュCD-10%/Lv","maxLevel":2,"cost":30,"requires":[],"effects":{"dashCooldownMultiplier":0.9}},
+  {"id":"META_DASH_STOCK","nameKey":"meta.META_DASH_STOCK.name","descKey":"meta.META_DASH_STOCK.desc","name":"追加バッファ","description":"初期ダッシュストック+1","maxLevel":1,"cost":60,"requires":["META_DASH_CD_I"],"effects":{"dashMaxStockDelta":1}},
+  {"id":"META_EXP_GAIN","nameKey":"meta.META_EXP_GAIN.name","descKey":"meta.META_EXP_GAIN.desc","name":"経験効率","description":"獲得EXP+5%/Lv","maxLevel":3,"cost":25,"requires":[],"effects":{"expMultiplier":1.05}},
+  {"id":"META_CORE_GAIN","nameKey":"meta.META_CORE_GAIN.name","descKey":"meta.META_CORE_GAIN.desc","name":"抽出効率","description":"獲得コア欠片+5%/Lv","maxLevel":3,"cost":25,"requires":[],"effects":{"coreMultiplier":1.05}},
+  {"id":"META_START_LEVEL","nameKey":"meta.META_START_LEVEL.name","descKey":"meta.META_START_LEVEL.desc","name":"初期経験","description":"ラン開始時Lv2から開始","maxLevel":1,"cost":35,"requires":[],"effects":{"startLevel":2}},
+  {"id":"META_PERK_RARITY","nameKey":"meta.META_PERK_RARITY.name","descKey":"meta.META_PERK_RARITY.desc","name":"高品質パーク","description":"レア以上候補+10%/Lv","maxLevel":2,"cost":40,"requires":[],"effects":{"perkRarityBonus":0.1}},
+  {"id":"META_UNLOCK_PERK_A","nameKey":"meta.META_UNLOCK_PERK_A.name","descKey":"meta.META_UNLOCK_PERK_A.desc","name":"パークセットA解放","description":"高度パーク(17〜24)解放","maxLevel":1,"cost":30,"requires":["META_EXP_GAIN"],"effects":{"unlockPerkSetA":true}},
+  {"id":"META_UNLOCK_MOD_A","nameKey":"meta.META_UNLOCK_MOD_A.name","descKey":"meta.META_UNLOCK_MOD_A.desc","name":"変調モジュールA","description":"高度モディファイア解放","maxLevel":1,"cost":30,"requires":[],"effects":{"unlockAdvancedModifiers":true}},
+  {"id":"META_SAFE_OPTION","nameKey":"meta.META_SAFE_OPTION.name","descKey":"meta.META_SAFE_OPTION.desc","name":"安全設定","description":"安全設定をONで開始","maxLevel":1,"cost":20,"requires":[],"effects":{"defaultSafeSettings":true}},
+  {"id":"META_TUTORIAL_SKIP","nameKey":"meta.META_TUTORIAL_SKIP.name","descKey":"meta.META_TUTORIAL_SKIP.desc","name":"チュートリアル省略","description":"Wave1説明をスキップ","maxLevel":1,"cost":10,"requires":[],"effects":{"tutorialSkip":true}}
+]
